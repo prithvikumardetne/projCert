@@ -1,0 +1,17 @@
+---
+- hosts: node
+  become: true
+  tasks:
+    - name: install git
+      yum:
+        name: git
+        state: present
+    - name: start docker
+      service:
+        name: docker
+        state: started
+    - name: pull the docker file
+      command: docker pull erashish01/phpwebapp:latest
+    - name: run the docker file
+      command: docker run -dt -P --name webappimage erashish01/phpwebapp
+
